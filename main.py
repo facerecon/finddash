@@ -35,9 +35,7 @@ while True:
         if result['confidence'] >= 0.5:
             music = pyglet.resource.media("trumpet.wav")
             music.play()
-
-            text_to_display = "Please follow me " + name
-
+            text_to_display = "Please follow me, " + name
             tts = gTTS(text=text_to_display, lang='en')
             os.system('rm good.mp3')
             tts.save("waitup.mp3")
@@ -46,7 +44,7 @@ while True:
 
         print(result)
 
-    #stream stuff
+    #stream to viewer
     frame = cv2.resize(frame, (640, 480))  # resize the frame
     encoded, buffer = cv2.imencode('.jpg', frame)
     jpg_as_text = base64.b64encode(buffer)

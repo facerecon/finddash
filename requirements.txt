@@ -1,3 +1,6 @@
 flask
 requests
 cognitive_face
+zmq
+gTTS
+pyglet
