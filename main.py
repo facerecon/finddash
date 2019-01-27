@@ -12,13 +12,20 @@ emotion_recognition_url = "https://westcentralus.api.cognitive.microsoft.com/fac
 
 header = {'Ocp-Apim-Subscription-Key': subscription_key, "Content-Type": "application/octet-stream"}
 
-data = {'url': None}
+data = {'url': "base1.jpg"}
 
 
 @app.route("/")
 def hello():
     # r = requests.get('https://api.github.com/')
-    r = requests.post(emotion_recognition_url, headers=header, data=img_data)
-    print(r.json())
+    r = requests.post(emotion_recognition_url, headers=header, data=data)
 
-    return str(r.json())
+    # r.raise_for_status()
+    analysis = r.json()
+    print("a:",analysis)
+    print("b",r.json())
+
+    return str(analysis)
+
+if __name__ == "__main__":
+    hello()
