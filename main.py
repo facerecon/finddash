@@ -7,7 +7,9 @@ from gtts import gTTS
 import os
 import base64
 import zmq
+import socket
 
+print("My local ip: ", socket.gethostbyname(socket.gethostname()))
 subscription_key = '8777598e1ed6400b819e1ca46ce59f19'
 CF.Key.set(subscription_key)
 BASE_URL = 'https://westcentralus.api.cognitive.microsoft.com/face/v1.0/'
