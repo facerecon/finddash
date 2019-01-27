@@ -5,6 +5,8 @@ import cognitive_face as CF
 import pyglet
 from gtts import gTTS
 import os
+import base64
+import zmq
 
 subscription_key = '8777598e1ed6400b819e1ca46ce59f19'
 CF.Key.set(subscription_key)
@@ -14,6 +16,12 @@ CF.BaseUrl.set(BASE_URL)
 target_img = CF.face.detect("target.jpg")[0]
 
 name = input("Please enter the person's name you want to find: ")
+
+context = zmq.Context()
+footage_socket = context.socket(zmq.PUB)
+footage_socket.connect('tcp://0.0.0.0:5555')
+
+camera = cv2.VideoCapture(0)  # init the camera
 
 while True:
     cam = cv2.VideoCapture(0)
@@ -37,5 +45,12 @@ while True:
             # pyglet.app.run()
 
         print(result)
+
+    #stream stuff
+    frame = cv2.resize(frame, (640, 480))  # resize the frame
+    encoded, buffer = cv2.imencode('.jpg', frame)
+    jpg_as_text = base64.b64encode(buffer)
+    footage_socket.send(jpg_as_text)
+
     cam.release()
     time.sleep(3)
