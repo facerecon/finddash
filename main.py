@@ -1,31 +1,23 @@
 from flask import Flask
 import requests
+import cognitive_face as CF
 
 app = Flask(__name__)
 
 subscription_key = '8777598e1ed6400b819e1ca46ce59f19'
-assert subscription_key
+CF.Key.set(subscription_key)
 
-img_data = open("base1.jpg", "rb").read()
+BASE_URL = 'https://westcentralus.api.cognitive.microsoft.com/face/v1.0/'  # Replace with your regional Base URL
+CF.BaseUrl.set(BASE_URL)
 
-emotion_recognition_url = "https://westcentralus.api.cognitive.microsoft.com/face/v1.0"
-
-header = {'Ocp-Apim-Subscription-Key': subscription_key, "Content-Type": "application/octet-stream"}
-
-data = {'url': "base1.jpg"}
 
 
 @app.route("/")
 def hello():
-    # r = requests.get('https://api.github.com/')
-    r = requests.post(emotion_recognition_url, headers=header, data=data)
+    faces = CF.face.detect("base1.jpg")
 
-    # r.raise_for_status()
-    analysis = r.json()
-    print("a:",analysis)
-    print("b",r.json())
+    return str(faces)
 
-    return str(analysis)
 
 if __name__ == "__main__":
     hello()
