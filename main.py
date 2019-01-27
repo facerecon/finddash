@@ -19,6 +19,6 @@ data = {'url': None}
 def hello():
     # r = requests.get('https://api.github.com/')
     r = requests.post(emotion_recognition_url, headers=header, data=img_data)
-    print(r)
+    print(r.json())
 
-    return r.json()
+    return str(r.json())
