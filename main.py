@@ -21,7 +21,7 @@ name = input("Please enter the person's name you want to find: ")
 
 context = zmq.Context()
 footage_socket = context.socket(zmq.PUB)
-footage_socket.connect('tcp://0.0.0.0:5555')
+footage_socket.bind('tcp://*:5555')
 
 while True:
     cam = cv2.VideoCapture(0)
