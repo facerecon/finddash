@@ -1,5 +1,4 @@
 from flask import Flask
-import requests
 import cognitive_face as CF
 
 app = Flask(__name__)
