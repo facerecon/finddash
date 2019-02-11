@@ -51,4 +51,4 @@ while True:
     footage_socket.send(jpg_as_text)
 
     cam.release()
-    time.sleep(3)
+    time.sleep(4)
